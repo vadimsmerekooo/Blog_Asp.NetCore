@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Admin Panel";
+}
+<div class="main-banner header-text">
+    <div class="container-fluid">
+        <div class="owl-banner owl-carousel">
+        </div>
+    </div>
+</div>
+
+<section class="blog-posts panel-admin">
+    <div id="sidebar-wrapper">
+        <div class="list-group list-group-flush bg-dark">
+            <a class="list-group-item list-group-item-action text-light" id="postsmenu-button">Posts</a>
+            <a class="list-group-item list-group-item-action text-light">Comments</a>
+            <a class="list-group-item list-group-item-action text-light">Category</a>
+            <a class="list-group-item list-group-item-action text-light">Tags</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div id="results"></div>
+        </div>
+    </div>
+</section>
+<script>
+    function openPage(evt, panelName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(panelName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>

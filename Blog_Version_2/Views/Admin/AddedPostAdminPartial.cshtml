@@ -1,0 +1,131 @@
+﻿@model Blog_Version_2.ModelsDAL.Posts
+@{
+    Blog_Version_2.ModelsDAL.Blog_ContextDAL _context = new Blog_Version_2.ModelsDAL.Blog_ContextDAL();
+}
+
+@inject Microsoft.AspNetCore.Identity.UserManager<Blog_Version_2.Areas.Identity.Data.BlogUser> userManager
+<script>
+    updateCategory();
+    updateTags();
+</script>
+<hr class="my-4 bg-light">
+<form class="col-lg" id="form-addpost" enctype="multipart/form-data" asp-action="Create" asp-controller="Admin">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" asp-for="Header">Title</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="first_input" placeholder="Title posts" asp-for="Header" maxlength="50">
+        </div>
+        <span asp-validation-for="Header" class="col col-form-label"></span>
+    </div>
+    <hr class="my-4 bg-light">
+    <div class="form-group-row">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" asp-for="PreviewPhoto">Preview Image</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" name="inputImage" class="custom-file-input inputImage" asp-for="PreviewPhoto">
+                <label class="custom-file-label" asp-for="PreviewPhoto">Choose image</label>
+            </div>
+        </div>
+        <span asp-validation-for="PreviewPhoto" class="col col-form-label"></span>
+    </div>
+    <hr class="my-4 bg-light">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" asp-for="PreviewText">Preview Description</label>
+        <div class="col-sm-10">
+            <textarea type="text" class="form-control" asp-for="PreviewText" placeholder="Preview description"></textarea>
+        </div>
+        <span asp-validation-for="PreviewText" class="col col-form-label"></span>
+    </div>
+    <hr class="my-4 bg-light">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" asp-for="Url">Url</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" asp-for="Url" id="second_input" placeholder="Url posts">
+        </div>
+        <span asp-validation-for="Url" class="col col-form-label"></span>
+    </div>
+    <hr class="my-4 bg-light">
+    <div class="form-group-row">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" asp-for="Category" for="inputGroupSelect">Category</label>
+            </div>
+            <select class="inputGroupSelectCategory custom-select " asp-for="Category" id="inputGroupSelectCategory">
+            </select>
+            <div class="btn-group dropright">
+                <a class="added-button" asp-action="CreateCategory" asp-controller="Admin" target="_blank">
+                    <img src="~/images/panel-images/Plus-button.png" height="25" width="25" />
+                </a>
+                <a class="btn" onclick="updateCategory();">
+                    <img src="~/images/panel-images/Update-button.png" height="25" width="25" />
+                </a>
+            </div>
+        </div>
+        <span asp-validation-for="Category" class="col col-form-label"></span>
+    </div>
+    <hr class="my-4 bg-light">
+    <div class="form-group-row">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01" asp-for="Tags">Tags</label>
+            </div>
+            <select class="custom-select inputGroupSelectTags" asp-for="Tags" id="inputGroupSelectTags">
+            </select>
+            <a class="added-button" asp-action="CreateTags" asp-controller="Admin" target="_blank">
+                <img src="~/images/panel-images/Plus-button.png" height="25" width="25" />
+            </a>
+            <a class="btn" onclick="updateTags();">
+                <img src="~/images/panel-images/Update-button.png" height="25" width="25" />
+            </a>
+        </div>
+        <span asp-validation-for="Tags" class="col col-form-label"></span>
+    </div>
+    <hr class="my-4 bg-light">
+    <!--Scripts CKEditor-->
+    <script src="~/js/ckeditor4/ckeditor.js"></script>
+    <script src="~/js/ckeditor5/ckeditor.js"></script>
+    <!--Scripts CKEditor-->
+    <div class="form-group-row">
+        <label class="col-sm-2 col-form-label">Description</label>
+        <textarea asp-for="Description" name="editor" id="editor" rows="10" cols="80"></textarea>
+        <span asp-validation-for="Description" class="col col-form-label"></span>
+        <script>
+            CKEDITOR.replace('editor');
+        </script>
+    </div>
+    <hr class="my-4 bg-light">
+    <div class="form-group-row">
+        <span asp-validation-for="Author" class="col-sm-2 field-validation-valid"></span>
+        <label for="inputEmail3" class="col col-form-label" asp-for="Author">Author</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="Author" asp-for="Author" value="@userManager.GetUserName(User)">
+        </div>
+    </div>
+    <hr class="my-4 bg-light">
+    <div class="form-group-row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-outline-dark text-light">Create</button>
+            <button type="submit" class="btn btn-outline-dark text-light">Create and watching</button>
+        </div>
+    </div>
+</form>
+<environment include="Development">
+    <script src="~/Identity/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+</environment>
+<environment exclude="Development">
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"
+            asp-fallback-src="~/Identity/lib/jquery-validation/dist/jquery.validate.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.validator"
+            crossorigin="anonymous"
+            integrity="sha384-rZfj/ogBloos6wzLGpPkkOr/gpkBNLZ6b6yLy4o+ok+t/SAKlL5mvXLr0OXNi1Hp">
+    </script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.9/jquery.validate.unobtrusive.min.js"
+            asp-fallback-src="~/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive"
+            crossorigin="anonymous"
+            integrity="sha384-ifv0TYDWxBHzvAk2Z0n8R434FL1Rlv/Av18DXE43N/1rvHyOG4izKst0f2iSLdds">
+    </script>
+</environment>

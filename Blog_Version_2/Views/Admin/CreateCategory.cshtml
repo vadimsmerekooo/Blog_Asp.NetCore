@@ -1,0 +1,31 @@
+﻿@model Blog_Version_2.ModelsDAL.Categorys
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<div class="main-banner header-text">
+    <div class="container-fluid">
+        <div class="owl-banner owl-carousel">
+        </div>
+    </div>
+</div>
+<section class="blog-posts panel-admin">
+    <div class="container">
+        <div class="row">
+            <form id="category" method="post" asp-action="CreateCategory" asp-controller="Admin">
+                <hr />
+                <div class="form-group">
+                    <label asp-for="Name" class="text-light"></label>
+                    <input asp-for="Name" class="form-control bg-dark text-light" id="first_input"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Url" class="text-light"></label>
+                    <input asp-for="Url" class="form-control bg-dark text-light" id="second_input"/>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-outline-dark text-light">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

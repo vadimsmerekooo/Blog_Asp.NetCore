@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Blog_Version_2.Areas.Identity.Data
+
+@inject SignInManager<BlogUser> SignInManager
+@inject UserManager<BlogUser> UserManager
+
+@{ 
+    string sdasds = ViewContext.RouteData.Values.ToString();
+}
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <li class="@(ViewContext.RouteData.Values.Values.Contains("Panel") ? "nav-link active" : "nav-link")">
+        <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Panel">@UserManager.GetUserName(User)</a>
+    </li>
+    @*<li class="nav-link">
+            <form id="logoutForm" class="form-inline nav-link" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="logout" type="submit" class="nav-link btn btn-link text-light">Logout</button>
+            </form>
+        </li>*@
+}
+else
+{
+    <li class="@(ViewContext.RouteData.Values.Values.Contains("/Account/Login") ? "nav-link active" : "nav-link")">
+        <a class="nav-link" id="login" asp-area="Identity" asp-page="/Account/Login">Adminka</a>
+    </li>
+}

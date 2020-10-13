@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <partial name="MetatagsPartial.cshtml" />
+    <title>@ViewData["Title"] - Blog</title>
+    <partial name="CssPartial.cshtml" />
+</head>
+<body class="text-light">
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <header class="header">
+        <partial name="HeaderPartial.cshtml" />
+    </header>
+
+    @RenderBody()
+    <footer class="footer text-muted">
+        <div class="container">
+            <partial name="FooterPartial.cshtml" />
+        </div>
+    </footer>
+    <partial name="ScriptsPartial.cshtml" />
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
